@@ -8,13 +8,11 @@ module Devise
           begin
             self.last_seen = DateTime.now
             self.save!
-          rescue Exception => e
-            Rails.logger.info "Something went wrong"
+          rescue ActiveRecord::StaleObjectError => e
+            Rails.logger.info "Something went wrong but we still just continue"
             Rails.logger.info "**"*20
             Rails.logger.info e
             Rails.logger.info "**"*20
-
-            raise e
           end
         end
       end
