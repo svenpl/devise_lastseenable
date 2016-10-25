@@ -9,10 +9,12 @@ module Devise
             self.last_seen = DateTime.now
             self.save!
           rescue Exception => e
-            puts "Something went wrong"
-            puts "**"*20
-            puts e
-            puts "**"*20
+            Rails.logger.info "Something went wrong"
+            Rails.logger.info "**"*20
+            Rails.logger.info e
+            Rails.logger.info "**"*20
+
+            raise e
           end
         end
       end
