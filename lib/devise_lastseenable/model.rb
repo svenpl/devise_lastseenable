@@ -5,8 +5,15 @@ module Devise
     module Lastseenable
       def stamp!
         if self.last_seen.to_i < (Time.now - 5.seconds).to_i
-          self.last_seen = DateTime.now
-          self.save!
+          begin
+            self.last_seen = DateTime.now
+            self.save!
+          rescue Exception => e
+            puts "Something went wrong"
+            puts "**"*20
+            puts e
+            puts "**"*20
+          end
         end
       end
     end
